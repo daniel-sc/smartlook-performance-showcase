@@ -3,10 +3,12 @@ import {NgModule} from '@angular/core';
 
 import {AppComponent} from './app.component';
 import {ReactiveFormsModule} from '@angular/forms';
+import { DummyComponent } from './dummy/dummy.component';
 
 @NgModule({
   declarations: [
-    AppComponent
+    AppComponent,
+    DummyComponent
   ],
     imports: [
         BrowserModule,

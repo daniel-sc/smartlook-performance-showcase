@@ -19,7 +19,8 @@ import {distinctUntilChanged} from 'rxjs/operators';
         <div>
             <h2>Rows</h2>
             <div *ngFor="let row of rows">
-                <span>{{row}}</span>
+                <app-dummy *ngIf="even(row)">{{row}} (even2)</app-dummy>
+                <app-dummy *ngIf="!even(row)">{{row}} (odd)</app-dummy>
             </div>
         </div>
     `,
@@ -30,9 +31,10 @@ export class AppComponent implements OnInit {
     rows = [];
     duration: number | null = null;
 
-    readonly enableFormControl = new FormControl(true);
+    readonly enableFormControl = new FormControl(false);
 
     ngOnInit() {
+        this.generateRows();
         smartlookClient.init('f6da96c5947b7de535697e0a8dfa0d1759f18bca');
         smartlookClient.consentAPI('Akzeptiert gemäss DSE und Einstellungen im Benutzerprofil');
         smartlookClient.consentForms('Akzeptiert gemäss DSE und Einstellungen im Benutzerprofil');
@@ -48,10 +50,14 @@ export class AppComponent implements OnInit {
 
     generateRows() {
         const start = Date.now();
-        for (let i = 0; i < 100; i++) {
-            this.rows.push(`hello ${i}`)
+        for (let i = 0; i < 1000; i++) {
+            this.rows.push(i)
         }
         //measure time after paint:
         setTimeout(() => this.duration = Date.now() - start);
+    }
+
+    even(row: number) {
+        return (row % 2) === 0;
     }
 }
